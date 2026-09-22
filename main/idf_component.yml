@@ -1,0 +1,8 @@
+## Managed dependencies.
+##
+## mDNS moved out of ESP-IDF into its own managed component in v5.x. The device
+## is reached as ste-<mac>.local because the TLS certificate's SAN is that name
+## and not a DHCP address that can move, so this is not optional.
+dependencies:
+  idf: ">=5.5.0"
+  espressif/mdns: "^1.8.0"

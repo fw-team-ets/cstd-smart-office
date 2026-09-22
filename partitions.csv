@@ -1,0 +1,18 @@
+# ETeams STE partition table - ESP32-S3, 8 MB flash.
+#
+# OTA is deliberately gone (spec v0.1 section 2): firmware is loaded over USB,
+# so there is a single `factory` app partition and no otadata. That removes the
+# 3 MB ota_1 slot and the whole rollback surface.
+#
+# There is no `vfs` FAT partition either: TLS cert/key are embedded in the
+# application image at build time (see main/CMakeLists.txt EMBED_TXTFILES), so
+# nothing has to be flashed at a second offset and there is no wear-levelling
+# question to answer.
+#
+# CONFIG_PARTITION_TABLE_OFFSET stays 0xC000 so the bootloader (mbedTLS TLS 1.3
+# + cert bundle, ~0x9000 long) still fits below the table.
+#
+# Name,     Type, SubType, Offset,   Size,     Flags
+nvs,        data, nvs,     0xD000,   0x6000,
+phy_init,   data, phy,     0x13000,  0x1000,
+factory,    app,  factory, 0x20000,  0x300000,

@@ -1,0 +1,6 @@
+build/
+sdkconfig
+sdkconfig.old
+main/certs/tls_server_cert.pem
+main/certs/tls_server_key.pem
+tools/ca/
